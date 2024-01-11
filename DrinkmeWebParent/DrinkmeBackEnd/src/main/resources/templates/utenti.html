@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta htp-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+		
+		<title>Admin - Utenti</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	</head>
+	
+	<body>
+		<div class="container-fluid">
+			<div>
+				<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+					<a class="navbar-brand" th:href="@{/}">
+						<H1>DrinkMe</H1>
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar" aria-controls="topNavbar" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					
+					<div class="collapse navbar-collapse" id="topNavbar">
+						<ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+								<a class="nav-link" th:href="@{/utenti}">Utenti</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/categorie}">Categorie</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/tavoli}">Tavoli</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/ordini}">Ordini</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/report}">Report</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/impostazioni}">Impostazioni</a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+			
+			<div class="m-3">
+				<h1>Gestione Utenti</h1>
+				<a th:href="@{/utenti/nuovo_utente}" class="fa-solid fa-user-plus fa-2x icon-dark m-3"></a>
+			</div>
+			
+			<div th:if="${message != null}" class="alert alert-success text-center">
+				[[${message}]]
+			</div>
+			
+			<div>
+				<form th:action="@{/utenti/page/1}" class="form-inline m-3">
+					Filtro:&nbsp;
+					<input type="search" name="keyword" th:value="${keyword}" class="form-control" required/>
+					&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary my-2 my-sm-0">
+						<i class="fas fa-search"></i>
+					</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-secondary" onclick="clearFilter()">
+						<i class="fas fa-eraser"></i>
+					</button>
+				</form>
+			</div>
+			
+			
+			<div class="full-details">
+				<table class="table table-bordered table-striped table-hover table-responsive-xl">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID Utente</th>
+							<th>Nome</th>
+							<th>Cognome</th>
+							<th>Email</th>
+							<th>Ruolo</th>
+							<th>Enabled</th>
+							<th></th>
+						</tr>						
+					</thead>
+					<tbody>
+						<tr th:each="user : ${listUsers}">
+							<td>[[${user.id}]]</td>
+							<td>[[${user.nome}]]</td>
+							<td>[[${user.cognome}]]</td>
+							<td>[[${user.email}]]</td>
+							<td>[[${user.roles}]]</td>
+							<td>
+								<a th:if="${user.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
+									th:href="@{'/utenti/' + ${user.id} + '/enabled/false'}"
+									title="Disabilita utente"></a>
+									
+								<a th:if="${user.enabled==false}" class="fas fa-circle fa-2x icon-dark"
+									th:href="@{'/utenti/' + ${user.id} + '/enabled/true'}"
+									title="Abilita utente"></a>
+							</td>
+							<td>
+								<a class="fas fa-edit fa-2x icon-green m-3" 
+									th:href="@{'/utenti/edit/' + ${user.id}}"
+									title="Modifica utente"></a>
+								&nbsp; 
+								<a class="fas fa-trash fa-2x icon-red link-delete m-3" 
+									th:href="@{'/utenti/delete/' + ${user.id}}"
+									th:userId="${user.id}" 
+									title="Elimina utente"></a>
+
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="less-details">
+				<div th:each="user: ${listUsers}" class="row m-3">	
+					<div class="col-4">
+						<span class="fas fa-portrait fa-7x icon-silver"></span>
+					</div>
+					<div class="col-8">
+						<div>[[${user.fullName}]]</div>
+						<div>[[${user.roles}]]</div>
+						<div class="mt-2">
+							<a th:if="${user.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
+									th:href="@{'/utenti/' + ${user.id} + '/enabled/false'}"
+									title="Disabilita utente"></a>
+							<a th:if="${user.enabled==false}" class="fas fa-circle fa-2x icon-dark"
+									th:href="@{'/utenti/' + ${user.id} + '/enabled/true'}"
+									title="Abilita utente"></a>
+							&nbsp; 
+							<a class="fas fa-edit fa-2x icon-green" 
+									th:href="@{'/utenti/edit/' + ${user.id}}"
+									title="Modifica utente"></a>
+							&nbsp; 
+							<a class="fas fa-trash fa-2x icon-red link-delete" 
+									th:href="@{'/utenti/delete/' + ${user.id}}"
+									th:userId="${user.id}" 
+									title="Elimina utente"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="text-center m-1" th:if="${totalItems > 0}">
+				<span> Utenti da #[[${startCount}]] a [[${endCount}]] di #[[${totalItems}]]</span>
+			</div>
+			<div class="text-center m-1" th:unless="${totalItems > 0}">
+				<span> Utenti non trovati</span>
+			</div>
+			
+			<div th:if="${totalPages > 1}">
+				<nav>
+				  <ul class="pagination justify-content-center flex-wrap">
+					<li th:class="${currentPage > 1 ? 'page-item': 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/utenti/page/1'}">First</a>
+					</li>
+				    <li th:class="${currentPage > 1 ? 'page-item': 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/utenti/page/' + ${currentPage - 1}}">Previous</a>
+					</li>
+					
+				    <li th:class="${currentPage != i ? 'page-item': 'page-item active'} " 
+				    	th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a class="page-link" th:href="@{'/utenti/page/' + ${i}}">[[${i}]]</a>
+					</li>
+				    
+				    <li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/utenti/page/' + ${currentPage + 1}}">Next</a>
+					</li>
+					<li th:class="${currentPage < totalPages ? 'page-item': 'page-item disabled'}">
+						<a class="page-link" th:href="@{'/utenti/page/' + ${totalPages}}">Last</a>
+					</li>
+				  </ul>
+				</nav>
+			</div>
+			
+			
+			<div class="modal fade text-center" id="confirmModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Conferma cancellazione</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						<div class="modal-body">
+							<span id="confirmText"></span>
+						</div>
+						
+						<div class="modal-footer">
+							<a class="btn btn-success" href="" id="yesButton">Sì</a>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="text-center">
+				<p>DrinkMe Control Panel - Copyright &copy; DrinkMe</p>
+			</div>
+		</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e){
+			e.preventDefault();
+			link = $(this);
+			//alert($(this).attr("href"));
+			userId = link.attr("userId");
+			$("#yesButton").attr("href", link.attr("href"));
+			$("#confirmText").text("Sei sicuro di voler eliminare l'utente " + userId + "?");
+			$("#confirmModal").modal();
+		}); 
+	});
+	
+	function clearFilter() {
+		window.location = "[[@{/utenti}]]";
+	}
+</script>
+
+	</body>
+</html>
