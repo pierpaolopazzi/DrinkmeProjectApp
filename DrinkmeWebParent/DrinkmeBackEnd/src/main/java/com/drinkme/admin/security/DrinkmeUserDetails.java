@@ -1,3 +1,4 @@
+/*
 package com.drinkme.admin.security;
 
 import java.util.ArrayList;
@@ -64,3 +65,4 @@ public class DrinkmeUserDetails implements UserDetails {
 	}
 
 }
+*/

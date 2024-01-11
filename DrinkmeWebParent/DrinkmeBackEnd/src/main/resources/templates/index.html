@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+	
+<!-- xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6" -->
 	<head>
 		<meta htp-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
 		
 		<title>Home - Drinkme Admin</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}" />
 		<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 		<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 	</head>
@@ -39,6 +42,9 @@
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/impostazioni}">Impostazioni</a>
+							</li>
+							<li>
+								<span class="fa-solid fa-user fa-2x icon-silver"></span>
 							</li>
 						</ul>
 					</div>
