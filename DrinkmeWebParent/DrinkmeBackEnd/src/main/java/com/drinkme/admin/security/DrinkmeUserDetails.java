@@ -1,4 +1,4 @@
-/*
+
 package com.drinkme.admin.security;
 
 import java.util.ArrayList;
@@ -63,6 +63,9 @@ public class DrinkmeUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return user.isEnabled();
 	}
+	
+	public String getFullname() {
+		return this.user.getNome() + " " + this.user.getCognome(); 
+	}
 
 }
-*/

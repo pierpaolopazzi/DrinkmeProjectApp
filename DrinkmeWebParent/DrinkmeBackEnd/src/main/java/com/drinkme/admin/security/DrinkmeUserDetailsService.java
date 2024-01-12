@@ -1,4 +1,4 @@
-/*
+
 package com.drinkme.admin.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +27,3 @@ public class DrinkmeUserDetailsService implements UserDetailsService {
 	}
 
 }
-*/
