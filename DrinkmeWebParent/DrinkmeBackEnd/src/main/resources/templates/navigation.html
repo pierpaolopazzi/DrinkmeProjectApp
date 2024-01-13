@@ -15,22 +15,39 @@
 					</button>
 					<div class="collapse navbar-collapse" id="topNavbar">
 						<ul class="navbar-nav mr-auto">
-							<li class="nav-item">
+							<li class="nav-item" sec:authorize="hasAuthority('Admin')">
 								<a class="nav-link" th:href="@{/utenti}">Utenti</a>
 							</li>
+							
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Cameriere')">
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/categorie}">Categorie</a>
 							</li>
+							</th:block>
+							
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Cameriere')">
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/prodotti}">Prodotti</a>
+							</li>
+							</th:block>
+							
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/tavoli}">Tavoli</a>
 							</li>
+							
+							<th:block sec:authorize="hasAnyAuthority('Admin', 'Cameriere')">
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/ordini}">Ordini</a>
 							</li>
+							</th:block>
+							
+							<th:block sec:authorize="hasAnyAuthority('Admin')">
 							<li class="nav-item">
 								<a class="nav-link" th:href="@{/report}">Report</a>
 							</li>
-							<li class="nav-item">
+							</th:block>
+							
+							<li class="nav-item" sec:authorize="hasAuthority('Admin')">
 								<a class="nav-link" th:href="@{/impostazioni}">Impostazioni</a>
 							</li>
 							<li>

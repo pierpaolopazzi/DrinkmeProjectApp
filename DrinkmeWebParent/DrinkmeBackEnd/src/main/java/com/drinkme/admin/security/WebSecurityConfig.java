@@ -35,10 +35,11 @@ public class WebSecurityConfig {
 	
 	@Bean
 	SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
-		//http.authenticationProvider(authenticationProvider());
+		http.authenticationProvider(authenticationProvider());
 		
 		
 		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/utenti/**").hasAuthority("Admin")	
 				.anyRequest().authenticated()
 				)  // Lambda DSL Syntax
 				.formLogin(form -> form
