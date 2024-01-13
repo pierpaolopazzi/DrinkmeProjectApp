@@ -4,7 +4,7 @@
 	<head th:replace="~{fragments :: page_head('Utenti - DrinkeMe Admin')}" />	
 	<body>
 		<div class="container-fluid">
-			<div th:replace="navigation :: menu"></div>
+			<div th:replace="~{navigation :: menu}"></div>
 
 			
 			<div class="m-3">
@@ -159,7 +159,7 @@
 				</div>
 			</div>
 			
-			<div th:replace=" fragments :: footer"></div>
+			<div th:replace="~{fragments :: footer}"></div>
 		</div>
 
 <script type="text/javascript">

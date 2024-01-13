@@ -67,5 +67,7 @@ public class DrinkmeUserDetails implements UserDetails {
 	public String getFullname() {
 		return this.user.getNome() + " " + this.user.getCognome(); 
 	}
+	
+
 
 }
