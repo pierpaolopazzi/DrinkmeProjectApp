@@ -13,7 +13,7 @@ import org.springframework.test.annotation.Rollback;
 
 import com.drinkme.common.entity.Category;
 
-@DataJpaTest
+@DataJpaTest(showSql = false)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
 public class CategoryRepositoryTests {
@@ -33,10 +33,10 @@ public class CategoryRepositoryTests {
 	public void testCreateSubCategory() {
 		
 		Category parent = new Category(3);
-		Category franciacorta = new Category("Franciacorta", parent);
-		Category savedCategory = repo.save(franciacorta);
+		Category champagne = new Category("Champagne", parent);
+		Category savedCategory = repo.save(champagne);
 
-		//assertThat(savedCategory.getId()).isGreaterThan(0);
+		assertThat(savedCategory.getId()).isGreaterThan(0);
 		
 	}
 	
@@ -52,7 +52,24 @@ public class CategoryRepositoryTests {
 			System.out.println(subCategory.getName());
 		}
 		
-		//assertThat(children.size()).isGreaterThan(0);
+		assertThat(children.size()).isGreaterThan(0);
+	}
+	
+	@Test
+	public void testPrintHierarchicalCategories() {
+		Iterable<Category> categories = repo.findAll();
+		
+		for(Category category : categories ) {
+			if(category.getParent() == null) {
+				System.out.println(category.getName());
+				
+				Set<Category> children = category.getChildren();
+				
+				for(Category subCategory : children) {
+					System.out.println("--" + subCategory.getName());
+				}
+			}
+		}
 	}
 	
 	@Test
