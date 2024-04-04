@@ -1,16 +1,10 @@
 package com.drinkme.common.entity;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -27,14 +21,14 @@ public class Category {
 	private String alias;
 		
 	private boolean enabled;
-	
+/*	
 	@OneToOne
-	@JoinColumn(name = "parent_id", unique = false)
+	@JoinColumn(name = "parent_id", nullable = false, unique = false)
 	private Category parent;
 	
 	@OneToMany(mappedBy = "parent")
 	private Set<Category> children = new HashSet<>();
-
+*/
 	
 	// costruttore vuoto 
 	public Category() {
@@ -48,11 +42,6 @@ public class Category {
 	public Category(String name) {
 		this.name = name;
 		this.alias = name;
-	}
-
-	public Category(String name, Category parent) {
-		this(name);
-		this.parent = parent;
 	}
 	
 	public Integer getId() {
@@ -85,22 +74,6 @@ public class Category {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public Category getParent() {
-		return parent;
-	}
-
-	public void setParent(Category parent) {
-		this.parent = parent;
-	}
-
-	public Set<Category> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Set<Category> children) {
-		this.children = children;
 	}
 
 

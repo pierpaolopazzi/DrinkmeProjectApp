@@ -39,7 +39,8 @@ public class WebSecurityConfig {
 		
 		
 		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/utenti/**").hasAuthority("Admin")	
+				.requestMatchers("/utenti/**").hasAuthority("Admin")
+				.requestMatchers("/categorie/**").hasAnyAuthority("Admin", "Cameriere")
 				.anyRequest().authenticated()
 				)  // Lambda DSL Syntax
 				.formLogin(form -> form
