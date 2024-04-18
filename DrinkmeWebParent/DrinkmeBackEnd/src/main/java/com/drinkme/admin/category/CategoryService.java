@@ -9,18 +9,20 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.drinkme.admin.user.UserNotFoundException;
 import com.drinkme.common.entity.Category;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class CategoryService {
 	public static final int CATEGORY_PER_PAGE = 10;
 	
 	@Autowired
-	private CategoryRepository repo;
+	private CategoryRepository categoryRepo;
 	
 	public List<Category> listAll() {
-		return (List<Category>) repo.findAll();
+		return (List<Category>) categoryRepo.findAll();
 	}
 	
 	
@@ -28,41 +30,67 @@ public class CategoryService {
 		Pageable pageable = PageRequest.of(pageNum - 1, CATEGORY_PER_PAGE);
 		
 		if(keyword != null) {
-			return repo.findAll(keyword, pageable);
+			return categoryRepo.findAll(keyword, pageable);
 		}
 		
-		return repo.findAll(pageable);
+		return categoryRepo.findAll(pageable);
 	}
 	
 	
 	public void save(Category category) {
-		
 		// vero se esiste categoria con id
 		boolean isUpdatingCategory = (category.getId() !=  null);
 		
-		repo.save(category);
-	}
-	
-	public Category get(Integer id) throws UserNotFoundException {
-		try {
-			return repo.findById(id).get();
-		} catch(NoSuchElementException ex) {
-			throw new UserNotFoundException("Impossibile trovare categoria con id: " + id);
+		categoryRepo.save(category);
+		
+		// verifico che sia una modifica
+		// piuttosto che una nuova categoria
+		if(isUpdatingCategory) {
+			
+			// recupero cateogria esistente
+			Category existingCategory = categoryRepo.findById(category.getId()).get();
+			
 		}
+		categoryRepo.save(category);
 	}
 	
-	public void delete(Integer id) throws UserNotFoundException {
-		Long countById = repo.countById(id);
-		if(countById == null || countById == 0) {
-			throw new UserNotFoundException("Impossibile trovare utenti con ID: " + id);
+	public boolean isCategoryUnique(Integer id, String name) {
+		Category categoryByName = categoryRepo.getCategoryByName(name);
+		
+		if(categoryByName == null) return true;
+		
+		boolean isCreatingNew = (id==null);
+		
+		if(isCreatingNew) {
+			if(categoryByName != null) return false;
+		} else {
+			if(categoryByName.getId() != id) {
+				return false;
+			}
 		}
 		
-		repo.deleteById(id);
+		return true;
+	}
+	
+	public Category get(Integer id) throws CategoryNotFoundException {
+		try {
+			return categoryRepo.findById(id).get();
+		} catch(NoSuchElementException ex) {
+			throw new CategoryNotFoundException("Impossibile trovare categoria con id: " + id);
+		}
+	}
+	
+	public void delete(Integer id) throws CategoryNotFoundException {
+		Long countById = categoryRepo.countById(id);
+		if(countById == null || countById == 0) {
+			throw new CategoryNotFoundException("Impossibile trovare la categoria con ID: " + id);
+		}
+		
+		categoryRepo.deleteById(id);
 	}
 	
 	
-	
-	public void updateUserEnabledStatus(Integer id, boolean enabled) {
-		repo.updateEnabledStatus(id, enabled);
+	public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
+		categoryRepo.updateEnabledStatus(id, enabled);
 	}
 }

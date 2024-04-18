@@ -6,12 +6,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.ListPagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.drinkme.common.entity.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Integer>, 
 								ListPagingAndSortingRepository<Category, Integer> {
 	
+	@Query("SELECT u FROM Category u WHERE u.name = :name")
+	public Category getCategoryByName(@Param("name") String name);
 	
 	public Long countById(Integer id);
 	

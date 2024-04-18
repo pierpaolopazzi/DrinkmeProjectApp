@@ -44,6 +44,11 @@ public class Category {
 		this.alias = name;
 	}
 	
+	public Category(String name, String alias) {
+		this.name = name;
+		this.alias = alias;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -76,6 +81,10 @@ public class Category {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", nome=" + name + ", alias=" + alias + "]";
+	}
 
 
 }

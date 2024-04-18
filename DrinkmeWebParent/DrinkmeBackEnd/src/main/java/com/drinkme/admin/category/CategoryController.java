@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.drinkme.admin.user.UserNotFoundException;
 import com.drinkme.common.entity.Category;
 
 @Controller
@@ -20,15 +19,9 @@ public class CategoryController {
 	
 	@Autowired
 	private CategoryService service;
-/*
-	@GetMapping("/categorie")
-	public String listAll(Model model) {
-		List<Category> listCategories = service.listAll();
-		model.addAttribute("listCategories", listCategories);
-		
-		return "categorie/categorie";
-	}
-*/
+
+	
+	
 	@GetMapping("/categorie")
 	public String listFirstPage(Model model) {
 		return listByPage(1, model, null);
@@ -59,16 +52,25 @@ public class CategoryController {
 	}
 	
 	
-	@GetMapping("/categoria/nuova_categoria")
-	public String newUser(Model model) {
+	@GetMapping("/categorie/nuova_categoria")
+	public String newCategory(Model model) {
 		Category categoria = new Category();
 		categoria.setEnabled(true);
 		
 		model.addAttribute("categoria", categoria);
 		model.addAttribute("pageTitle", "Crea nuova categoria");
 		
-		return "categorie/form_utente";
-	}	
+		return "categorie/form_categoria";
+	}
+	
+	@PostMapping("/categorie/salva")
+	public String saveCategory(Category category, RedirectAttributes redirectAttributes) {
+		System.out.println(category);
+		service.save(category);
+		
+		redirectAttributes.addFlashAttribute("message", "La categoria e' stata aggiunta con successo!");
+		return "redirect:/categorie";
+	}
 	
 	
 	@GetMapping("/categorie/edit/{id}")
@@ -81,30 +83,20 @@ public class CategoryController {
 			model.addAttribute("categoria", categoria);
 			model.addAttribute("pageTitle", "Modifica categoria (ID: "+id+")");
 			
-			return "form_categoria";
-		} catch(UserNotFoundException ex) {
+			return "categorie/form_categoria";
+		} catch(CategoryNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/categorie";
 		}
 	}
 	
 	
-	@PostMapping("/categorie/salva")
-	public String saveCategory(Category category, RedirectAttributes redirectAttributes) {
-		System.out.println(category);
-		service.save(category);
-		
-		redirectAttributes.addFlashAttribute("message", "La categoria e' stata salvata con successo!");
-		return "redirect:/categorie";
-	}
-
-	
 	@GetMapping("/categorie/delete/{id}")
 	public String deleteCategory(@PathVariable(name = "id") Integer id, Model model, RedirectAttributes redirectAttributes) {
 		try{
 			service.delete(id);
 			redirectAttributes.addFlashAttribute("message", "La categoria ID: "+id+" é stata eliminata correttamente"); 
-		} catch(UserNotFoundException ex) {
+		} catch(CategoryNotFoundException ex) {
 			redirectAttributes.addFlashAttribute("message", ex.getMessage());
 		}
 		return "redirect:/categorie";
@@ -113,7 +105,7 @@ public class CategoryController {
 	@GetMapping("/categorie/{id}/enabled/{status}")
 	public String updateCategoryEnabledStatus(@PathVariable("id") Integer id,
 			@PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
-		service.updateUserEnabledStatus(id, enabled);
+		service.updateCategoryEnabledStatus(id, enabled);
 		String status = enabled ? "abilitata" : "disabilitata";
 		String message = "La categoria " + id + " é stata " + status;
 		redirectAttributes.addFlashAttribute("message", message);
