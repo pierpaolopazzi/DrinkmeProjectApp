@@ -16,6 +16,8 @@ public interface CategoryRepository extends CrudRepository<Category, Integer>,
 	@Query("SELECT u FROM Category u WHERE u.name = :name")
 	public Category getCategoryByName(@Param("name") String name);
 	
+	public Category findByAlias(String alias); 
+	
 	public Long countById(Integer id);
 	
 	@Query("SELECT u FROM Category u WHERE CONCAT(u.id, ' ', u.name, ' ', u.alias) LIKE %?1%") 

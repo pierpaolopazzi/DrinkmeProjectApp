@@ -14,7 +14,7 @@
 			</div>
 			
 			<form th:action="@{/categorie/salva}" method="post" style="max-width:700px; margin:0 auto" 
-				th:object="${categoria}">
+				onsubmit="return checkCategoryUnique(this)" th:object="${categoria}">
 				<input type="hidden" th:field="*{id}" />
 			<div class="border border-secondary rounded p-3">
 				
@@ -79,23 +79,28 @@
 		
 		function checkCategoryUnique(form) {
 			url="[[@{/categorie/check_name}]]";
-			categoryName = $("name").val();
-			categoryId = $("#id").val();
+			catName = $("#name").val();
+			catId = $("#id").val();
+			catAlias = $("#alias").val()
+			
 			csrfValue = $("input[name='_csrf']").val();
 			
-			params = {id: categoryId, name: categoryName, _csrf: csrfValue};
+			params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
 			
 			$.post(url, params, function(response) {
 				if(response == "OK") {
 					form.submit();
-				} else if(response == "Duplicated"){
-					showModalDialog("Attenzoine", "Nome già in uso");
+				} else if(response == "Duplicate Name") {
+					showModalDialog("Attenzione", "Nome già in uso");
+				} else if(response == "Duplicate alias"){
+					showModalDialog("Attenzione", "alias già in uso");
 				} else {
 					showModalDialog("Errore", "Errore sconosciuto");
 				}
 			}).fail(function() {
 				showModalDialog("Errore", "Process failed");
 			});
+				
 			return false;
 		}
 
@@ -104,8 +109,9 @@
 			$("#modalTitle").text(title);
 			$("#modalBody").text(message);
 			$("#modalDialog").modal();
-			
 		}
+		
+		
 		
 	</script>
 	

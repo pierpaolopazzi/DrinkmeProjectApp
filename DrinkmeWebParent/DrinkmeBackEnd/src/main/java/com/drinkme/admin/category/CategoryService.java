@@ -54,22 +54,31 @@ public class CategoryService {
 		categoryRepo.save(category);
 	}
 	
-	public boolean isCategoryUnique(Integer id, String name) {
+	public String isCategoryUnique(Integer id, String name, String alias) {
+		boolean isCreatingNew = (id == null || id == 0);
+		
 		Category categoryByName = categoryRepo.getCategoryByName(name);
 		
-		if(categoryByName == null) return true;
-		
-		boolean isCreatingNew = (id==null);
-		
+			 	
 		if(isCreatingNew) {
-			if(categoryByName != null) return false;
-		} else {
-			if(categoryByName.getId() != id) {
-				return false;
+			if(categoryByName != null) {
+				return "Duplicate Name";
+			} else {
+				Category categoryByAlias = categoryRepo.findByAlias(alias);
+				if(categoryByAlias != null) {
+					return "Duplicate alias"; 
+				}
+			} 
+		}else {
+			if(categoryByName != null && categoryByName.getId() != id) {
+				return "Duplicate Name";
+			}
+			Category categoryByAlias = categoryRepo.findByAlias(alias);
+			if(categoryByAlias != null && categoryByAlias.getId() != id) {
+				return "Duplicate Alias" ;
 			}
 		}
-		
-		return true;
+		return "OK";
 	}
 	
 	public Category get(Integer id) throws CategoryNotFoundException {

@@ -9,7 +9,7 @@
 			
 			<div class="m-3">
 				<h1>Gestione Categorie</h1>
-				<a th:href="@{/categorie/nuova_categoria}" class="fa-solid fa-user-plus fa-2x icon-dark m-3"></a>
+				<a th:href="@{/categorie/nuova_categoria}" class="fa-solid fa-folder-plus fa-2x icon-dark m-3"></a>
 			</div>
 			
 			<div th:if="${message != null}" class="alert alert-success text-center">
@@ -34,10 +34,6 @@
 					</button>
 				</form>
 			</div>
-
-
-
-
 
 
 			<div class="full-details">
@@ -83,9 +79,11 @@
 			<div class="less-details">
 				<div th:each="cat: ${listCategories}" class="row m-3">	
 					<div class="col-4">
-						<span class="fas fa-portrait fa-7x icon-silver"></span>
+						<span class="fas fa-wine-bottle fa-7x icon-silver"></span>
 					</div>
 					<div class="col-8">
+						<div>Name: [[${cat.name}]]</div>
+						<div>Alias: [[${cat.alias}]]</div>
 						<div class="mt-2">
 							<a th:if="${cat.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
 									th:href="@{'/categorie/' + ${cat.id} + '/enabled/false'}"

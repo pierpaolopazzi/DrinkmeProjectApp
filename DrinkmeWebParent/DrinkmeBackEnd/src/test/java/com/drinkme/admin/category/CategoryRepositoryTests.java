@@ -63,9 +63,6 @@ public class CategoryRepositoryTests {
 		assertThat(countById).isNotNull().isGreaterThan(0);
 	}
 	
-	
-	
-	
 
 	@Test
 	public void testEnableCategory() {
@@ -111,4 +108,21 @@ public class CategoryRepositoryTests {
 		assertThat(listCategories.size()).isGreaterThan(0); 
 	}
 	
+	@Test
+	public void testFindByName() {
+		String name = "Vodka";
+		Category category = repo.getCategoryByName(name);
+		
+		assertThat(category).isNotNull();
+		assertThat(category.getName()).isEqualTo(name);
+	}
+	
+	@Test
+	public void testFindByAlias() {
+		String name = "Vodka";
+		Category category = repo.findByAlias(name);
+		
+		assertThat(category).isNotNull();
+		assertThat(category.getName()).isEqualTo(name);
+	}
 }
