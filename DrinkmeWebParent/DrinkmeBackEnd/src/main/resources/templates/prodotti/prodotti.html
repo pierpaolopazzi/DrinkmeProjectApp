@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+	<head th:replace="~{fragments :: page_head('Prodotti - DrinkeMe Admin')}" />	
+	<body>
+		<div class="container-fluid">
+			<div th:replace="~{navigation :: menu}"></div>
+
+		
+			<div class="m-3">
+				<h1>Gestione Prodotti</h1>
+				<a th:href="@{/prodotti/nuovo_prodotto}" class="fa-solid fa-square-plus fa-2x icon-dark m-3"></a>
+			</div>
+			
+			<div th:if="${message != null}" class="alert alert-success text-center">
+				[[${message}]]
+			</div>
+
+
+			<div class="full-details">
+				<table class="table table-bordered table-striped table-hover table-responsive-xl">
+					<thead class="thead-dark">
+						<tr>
+							<th>ID</th>
+							<th>Nome</th>
+							<th>Alias</th>
+							<th>Prezzo</th>
+							<th>Categoria</th>
+							<th>Enabled</th>
+							<th></th>
+						</tr>						
+					</thead>
+
+					<tbody>
+						<tr th:each="pro : ${listProducts}">
+							<td>[[${pro.id}]]</td>
+							<td>[[${pro.name}]]</td>
+							<td>[[${pro.alias}]]</td>
+							<td>[[${pro.price}]]</td>
+							<td>[[${pro.category.name}]]</td>
+							<td>
+								<a th:if="${pro.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
+									th:href="@{'/products/' + ${pro.id} + '/enabled/false'}"
+									title="Disabilita prodotto"></a>
+									
+								<a th:if="${pro.enabled==false}" class="fas fa-circle fa-2x icon-dark"
+									th:href="@{'/products/' + ${pro.id} + '/enabled/true'}"
+									title="Abilita prodotto"></a>
+							</td>
+							<td>
+								<a class="fas fa-edit fa-2x icon-green m-3" 
+									th:href="@{'/pro/edit/' + ${pro.id}}"
+									title="Modifica prodotto"></a>
+								&nbsp; 
+								<a class="fas fa-trash fa-2x icon-red link-delete m-3" 
+									th:href="@{'/products/delete/' + ${pro.id}}"
+									th:userId="${pro.id}" 
+									title="Elimina Prodotto"></a>
+							</td>
+						</tr>
+					</tbody>
+
+				</table>
+			</div>
+
+			<div th:replace="~{fragments :: footer}"></div>
+		</div>
+	
+
+	</body>
+</html>
