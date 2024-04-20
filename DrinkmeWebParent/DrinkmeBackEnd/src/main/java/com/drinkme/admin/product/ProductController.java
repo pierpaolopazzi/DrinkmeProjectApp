@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.drinkme.admin.category.CategoryService;
+import com.drinkme.common.entity.Category;
 import com.drinkme.common.entity.Product;
 
 @Controller
@@ -60,16 +61,27 @@ public class ProductController {
 	
 	@GetMapping("/prodotti/nuovo_prodotto")
 	public String newProduct(Model model) {
+		List<Category> listCategory = categoryService.listAll();
 		
 		Product product = new Product();
 		product.setEnabled(true);
 		product.setInStock(true);
 		
 		model.addAttribute("product", product);
-		model.addAttribute("pageTitle", "Create New Product");
+		model.addAttribute("listCategory", listCategory);
+		model.addAttribute("pageTitle", "Crea nuovo prodotto");
 		
 		return "prodotti/form_prodotto";
 	}
 	
-	
+/*
+	@PostMapping("/prodotti/salva")
+	public String saveProduct(Product product, RedirectAttributes redirectAttributes) {
+		System.out.println(product);
+		productService.save(product);
+		
+		redirectAttributes.addFlashAttribute("message", "<Il prodotto e' stato aggiunto con successo!");
+		return "redirect:/prodotti";
+	}
+*/
 }
