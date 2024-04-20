@@ -7,13 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.drinkme.admin.category.CategoryService;
 import com.drinkme.common.entity.Product;
 
 @Controller
 public class ProductController {
 
 	@Autowired private ProductService productService;
-	
+	@Autowired private CategoryService categoryService;
 /*
 	@GetMapping("/prodotti")
 	public String listFirstPage(Model model) {
@@ -55,6 +56,19 @@ public class ProductController {
 		
 		model.addAttribute("listProducts", listProducts);
 		return "prodotti/prodotti";
+	}
+	
+	@GetMapping("/prodotti/nuovo_prodotto")
+	public String newProduct(Model model) {
+		
+		Product product = new Product();
+		product.setEnabled(true);
+		product.setInStock(true);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("pageTitle", "Create New Product");
+		
+		return "prodotti/form_prodotto";
 	}
 	
 	

@@ -75,7 +75,7 @@ public class CategoryRepositoryTests {
 		Integer id = 1;
 		repo.updateEnabledStatus(id, false);
 	}
-	
+		
 	@Test
 	public void testListFirstPage() {
 		int pageNumber = 0;
@@ -124,5 +124,13 @@ public class CategoryRepositoryTests {
 		
 		assertThat(category).isNotNull();
 		assertThat(category.getName()).isEqualTo(name);
+	}
+	
+	@Test
+	public void testFindAll() {
+		Iterable<Category> categories = repo.findAll();
+		categories.forEach(System.out::println);
+		
+		assertThat(categories).isNotEmpty();
 	}
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head th:replace="~{fragments :: page_head(${pageTitle})}" />	
+
+	
+	<body>
+		<div class="container-fluid">
+			<div th:replace="~{navigation :: menu}"></div>
+
+			
+			<div class="m-3">
+				<h1>Gestione Prodotti | [[${pageTitle}]] </h1>
+			</div>
+			
+			<form th:action="@{/prodotti/salva}" method="post" style="max-width:700px; margin:0 auto" 
+					 th:object="${prodotto}">
+				<input type="hidden" th:field="*{id}" />
+			
+			</form>
+			
+			<div class="modal fade text-center" id="modalDialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="modalTitle">Attenzione</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						
+						<div class="modal-body">
+							<span id="modalBody"></span>
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Chiudi</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+			<div th:replace="~{fragments :: footer}"></div>
+
+		</div>
+		
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#buttonCancel").on("click", function(){
+				window.location = "[[@{/prodotti}]]";
+			});
+		});
+		
+		function checkCategoryUnique(form) {
+			url="[[@{/prodotti/check_name}]]";
+			catName = $("#name").val();
+			catId = $("#id").val();
+			catAlias = $("#alias").val()
+			
+			csrfValue = $("input[name='_csrf']").val();
+			
+			params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
+			
+			$.post(url, params, function(response) {
+				if(response == "OK") {
+					form.submit();
+				} else if(response == "Duplicate Name") {
+					showModalDialog("Attenzione", "Nome già in uso");
+				} else if(response == "Duplicate alias"){
+					showModalDialog("Attenzione", "alias già in uso");
+				} else {
+					showModalDialog("Errore", "Errore sconosciuto");
+				}
+			}).fail(function() {
+				showModalDialog("Errore", "Process failed");
+			});
+				
+			return false;
+		}
+
+		
+		function showModalDialog(title, message) {
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		}
+		
+		
+		
+	</script>
+	
+	
+
+	</body>
+	
+
+</html>
