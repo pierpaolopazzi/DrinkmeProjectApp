@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.drinkme.admin.category.CategoryService;
 import com.drinkme.common.entity.Category;
@@ -74,14 +75,14 @@ public class ProductController {
 		return "prodotti/form_prodotto";
 	}
 	
-/*
+
 	@PostMapping("/prodotti/salva")
-	public String saveProduct(Product product, RedirectAttributes redirectAttributes) {
-		System.out.println(product);
-		productService.save(product);
+	public String saveProduct(Product product) {
+		System.out.println("Nome Prodotto: " + product.getName());
+		System.out.println("ID Categoria: " + product.getCategory().getId());
 		
-		redirectAttributes.addFlashAttribute("message", "<Il prodotto e' stato aggiunto con successo!");
+
 		return "redirect:/prodotti";
 	}
-*/
+
 }

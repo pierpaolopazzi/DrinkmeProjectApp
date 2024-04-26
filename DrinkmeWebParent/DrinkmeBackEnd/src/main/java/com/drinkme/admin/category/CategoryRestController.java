@@ -15,4 +15,5 @@ public class CategoryRestController {
 	public String checkDuplicateName(@Param("id") Integer id, @Param("name") String name, @Param("alias") String alias) {
 		return service.isCategoryUnique(id, name, alias);
 	}
+	
 }
