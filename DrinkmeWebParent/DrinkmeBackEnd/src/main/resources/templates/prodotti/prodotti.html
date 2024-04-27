@@ -40,20 +40,20 @@
 							<td>[[${pro.category.name}]]</td>
 							<td>
 								<a th:if="${pro.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
-									th:href="@{'/products/' + ${pro.id} + '/enabled/false'}"
+									th:href="@{'/prodotti/' + ${pro.id} + '/enabled/false'}"
 									title="Disabilita prodotto"></a>
 									
 								<a th:if="${pro.enabled==false}" class="fas fa-circle fa-2x icon-dark"
-									th:href="@{'/products/' + ${pro.id} + '/enabled/true'}"
+									th:href="@{'/prodotti/' + ${pro.id} + '/enabled/true'}"
 									title="Abilita prodotto"></a>
 							</td>
 							<td>
 								<a class="fas fa-edit fa-2x icon-green m-3" 
-									th:href="@{'/pro/edit/' + ${pro.id}}"
+									th:href="@{'/prodotti/edit/' + ${pro.id}}"
 									title="Modifica prodotto"></a>
 								&nbsp; 
 								<a class="fas fa-trash fa-2x icon-red link-delete m-3" 
-									th:href="@{'/products/delete/' + ${pro.id}}"
+									th:href="@{'/prodotti/delete/' + ${pro.id}}"
 									th:userId="${pro.id}" 
 									title="Elimina Prodotto"></a>
 							</td>
@@ -62,6 +62,39 @@
 
 				</table>
 			</div>
+			
+			
+			<div class="less-details">
+				<div th:each="pro: ${listProducts}" class="row m-3">	
+					<div class="col-4">
+						<span class="fas fa-wine-bottle fa-7x icon-silver"></span>
+					</div>
+					<div class="col-8">
+						<div>Nome: [[${pro.name}]]</div>
+						<div>Alias: [[${pro.alias}]]</div>
+						<div class="mt-2">
+							<a th:if="${pro.enabled==true}" class="fas fa-check-circle fa-2x icon-green"
+									th:href="@{'/prodotti/' + ${pro.id} + '/enabled/false'}"
+									title="Disabilita prodotto"></a>
+							<a th:if="${pro.enabled==false}" class="fas fa-circle fa-2x icon-dark"
+									th:href="@{'/prodotti/' + ${pro.id} + '/enabled/true'}"
+									title="Abilita prodotto"></a>
+							&nbsp; 
+							<a class="fas fa-edit fa-2x icon-green" 
+									th:href="@{'/prodotti/edit/' + ${pro.id}}"
+									title="Modifica prodotto"></a>
+							&nbsp; 
+							<a class="fas fa-trash fa-2x icon-red link-delete" 
+									th:href="@{'/prodotti/delete/' + ${pro.id}}"
+									th:userId="${pro.id}" 
+									title="Elimina prodotto"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			
 
 			<div th:replace="~{fragments :: footer}"></div>
 		</div>
