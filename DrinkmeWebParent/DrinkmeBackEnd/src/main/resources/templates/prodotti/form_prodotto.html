@@ -10,38 +10,85 @@
 
 			
 			<div class="m-3">
-				<h1>Gestione Prodotto | [[${pageTitle}]] </h1>
+				<h1>Gestione Prodotti | [[${pageTitle}]] </h1>
 			</div>
 			
 			<form th:action="@{/prodotti/salva}" method="post" 
-				onsubmit="return checkProductUnique(this)" th:object="${product}">
+				onsubmit="return checkUnique(this)" th:object="${product}">
 				<input type="hidden" th:field="*{id}" />
-			<div>	
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-				  <li class="nav-item">
-				    <a class="nav-link active"  data-toggle="tab" href="#overview" role="tab">Overview</a>
-				  </li>
-				  <li class="nav-item">
-				    <a class="nav-link"  data-toggle="tab" href="#details" role="tab">Details</a>
-				  </li>
-				</ul>
 				
-				<!-- Tab panes -->
-				<div class="tab-content">
-				  <div class="tab-pane active p-3" id="overview" role="tabpanel">
-					  <div th:replace="~{prodotti/overview_prodotto :: content}"></div>
-				  </div>
-				  <div class="tab-pane active p-3" id="details" role="tabpanel">
-					  <div th:replace="~{prodotti/details_prodotto :: content}"></div>
-				  </div>
+				
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Nome Prodotto:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{name}" required minlength="3" maxlength="125"/>
+					</div>
 				</div>
-			</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Alias:</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" th:field="*{alias}" required minlength="3" maxlength="125"/>
+					</div>
+				</div>
+				
+				<div class="form-group row">
+					<label class="col-sm-2 col-form-label">Categoria:</label>
+					<div class="col-sm-10">
+						<select th:field="*{category}" class="form-control" required>
+							<th:block th:each="category : ${listCategory}">
+								<option th:value="${category.id}" th:text="${category.name}">[[${category.name}]]</option>
+							</th:block>
+						</select>
+					</div>
+				</div>
+				
+			
+				<div class="formg-group row">
+					<label class="col-sm-2 col-form-label">Abilitato:</label>
+					<div class="col-sm-10">
+						<input type="checkbox" class="m-2" th:field="*{enabled}" />						
+					</div>
+				</div>
+				
+				<div class="formg-group row">
+					<label class="col-sm-2 col-form-label">In-Stock:</label>
+					<div class="col-sm-10">
+						<input type="checkbox" class="m-2" th:field="*{inStock}"  />						
+					</div>
+				</div>
+				
+				<div class="formg-group row">
+					<label class="col-sm-2 col-form-label">Costo:</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control m-2" th:field="*{cost}"/>						
+					</div>
+				</div>
+				
+				<div class="formg-group row">
+					<label class="col-sm-2 col-form-label">Prezzo:</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control m-2" th:field="*{price}"/>						
+					</div>
+				</div>
+				
+				<div class="formg-group row">
+					<label class="col-sm-2 col-form-label">Sconto:</label>
+					<div class="col-sm-10">
+						<input type="number" class="form-control m-2" th:field="*{discountPercent}"/>						
+					</div>
+				</div>
+				
+				<div class="m-2">
+					<label>Descrizione:</label>
+					<textarea class="form-control" th:field="*{shortDescription}" rows="5" required></textarea>
+				</div>
+			
 			
 			
 			<div class="text-center">
 				<input type="submit" value="Salva" class="btn btn-primary m-3" />
-				<input type="button" value="Cancella" class="btn btn-secondary" id="buttonCancel" />
+				<input type="button" value="Cancella" class="btn btn-secondary m-3" id="buttonCancel" />
 			</div>
 			
 			</form>
@@ -69,50 +116,46 @@
 
 		</div>
 		
-<script type="text/javascript">
-	//moduleURL = "[[@{/prodotti}]]";
-	
-	$(document).ready(function() {
-		$("#buttonCancel").on("click", function(){
-			window.location = "[[@{/prodotti}]]";
-		});
-	});
-	
-	function checkProductUnique(form) {
-		url="[[@{/prodotti/check_unique}]]";
-		productName = $("#name").val();
-		productId = $("#id").val();
-		
-		csrfValue = $("input[name='_csrf']").val();
-		
-		params = {id: productId, name: productName, _csrf: csrfValue};
-			
-		$.post(url, params, function(response) {
-			if(response == "OK") {
-				form.submit();
-			} else if(response == "Duplicate Name") {
-				showModalDialog("Attenzione", "Prodotto gia inserito");
-			} else {
-				showModalDialog("Errore", "Errore sconosciuto");
-			}
-		}).fail(function() {
-			showModalDialog("Errore", "Process failed");
-		});
-				
-		return false;
-	}
+	<script type="text/javascript">
 
 		
-	function showModalDialog(title, message) {
-		$("#modalTitle").text(title);
-		$("#modalBody").text(message);
-		$("#modalDialog").modal();
-	};
-		
-		
-</script>
+		$(document).ready(function() {
+			$("#buttonCancel").on("click", function(){
+				window.location = "[[@{/prodotti}]]";
+			});
+		});
+
+		function checkUnique(form) {
+			url="[[@{/prodotti/check_unique}]]";
+			productName = $("#name").val();
+			productId = $("#id").val();
+			csrfValue = $("input[name='_csrf']").val();
+			
+			params = {id: productId, name: productName, _csrf: csrfValue};
+				
+			$.post(url, params, function(response) {
+				if(response == "OK") {
+					form.submit();
+				} else if(response == "Duplicate") {
+					showModalDialog("Attenzione", "Prodotto gia inserito");
+				} else {
+					showModalDialog("Errore", "Errore sconosciuto");
+				}
+			}).fail(function() {
+				showModalDialog("Errore", "Process failed");
+			});
+					
+			return false;
+		}	
+			
+		function showModalDialog(title, message) {
+			$("#modalTitle").text(title);
+			$("#modalBody").text(message);
+			$("#modalDialog").modal();
+		};
+			
+			
+	</script>
 
 	</body>
-	
-
 </html>

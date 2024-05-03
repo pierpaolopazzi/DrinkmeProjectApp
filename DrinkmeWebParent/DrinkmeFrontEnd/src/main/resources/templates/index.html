@@ -1,11 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="ISO-8859-1">
-		<title>DrinkMe Application</title>
-	</head>
+
+	<head th:replace="~{fragments :: page_head('Drinkme')}" />
 	
 	<body>
-		<h1>Welcome to DrinkMe Application</h1>
+		
+        <img src="/static/images/LogoFrontEnd.png" alt="Logo" class="img-fluid">
+ 
+		
+		
+		<div class="container mt-5">
+        <h1 class="mb-4">Lista Categorie e Prodotti</h1>
+			<div class="card" th:each="categoria : ${listCategories}">
+		  	  <button class="btn btn-custom btn-outline-custom" type="button" data-toggle="collapse" th:data-target="'#collapse-' + ${categoria.id}">
+		 	       <span th:text="${categoria.name}"></span>
+			    </button>
+				<div th:id="'collapse-' + ${categoria.id}" class="collapse collapse-content">
+        			<ul th:each="prodotto : ${listProducts}" th:if="${prodotto.category.id == categoria.id}">
+       		     		<li th:text="${prodotto.name}"></li>
+       		 		</ul>
+   			 	</div>
+			</div>
+
+
+	<div th:replace="~{fragments :: footer}"></div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>

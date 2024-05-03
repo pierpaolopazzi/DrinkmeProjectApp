@@ -33,7 +33,7 @@ public class ProductRepositoryTests {
 		
 		Product product = new Product();
 		product.setName("Absolut 0.70L");
-		product.setAlias("Absolut_0.70");
+		product.setAlias("absolut-0.7");
 		product.setShortDescription("Absolut Vodka svedese da 0.70L");
 		
 		product.setCategory(category);

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	
+<head th:fragment="page_head(title)">
+	<meta htp-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+		
+	<title>[[${title}]]</title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+        }
+
+        .btn.btn-custom {
+            background-color: #ffc107; /* Giallo */
+            color: #000000; /* Nero */
+            border-color: #ffc107; /* Giallo */
+        }
+
+        .btn.btn-custom:hover {
+            background-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
+            border-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
+        }
+        
+        .btn.btn-custom.btn-outline-custom {
+		    background-color: #ffc107; /* Giallo */
+		    color: #000000; /* Nero */
+		    border-color: #343a40; /* Tonalità scura vicino al nero */
+		}
+		
+		.btn.btn-custom.btn-outline-custom:hover {
+		    background-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
+		    border-color: #343a40; /* Tonalità scura vicino al nero */
+		}
+		
+		.btn.btn-custom.btn-outline-custom:focus {
+		    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.5); /* Aggiunge uno shadow al focus */
+		}
+
+        .collapse-content {
+            background-color: #343a40;
+            border: 1px solid #343a40;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .collapse-content ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .collapse-content ul li {
+            padding: 10px;
+            border-bottom: 1px solid #495057;
+        }
+
+        .collapse-content ul li:last-child {
+            border-bottom: none;
+        }
+
+        .btn-group > .btn {
+            margin: 0;
+        }
+
+        /* Responsive CSS per smartphone e tablet */
+        @media (max-width: 767px) {
+            .btn-group {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>	
+		<div th:fragment="footer" class="text-center m-3">
+			<p>DrinkMe - Copyright &copy; DrinkMe</p>
+		</div>
+</body>
+	
+	
+</html>
