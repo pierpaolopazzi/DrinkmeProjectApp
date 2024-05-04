@@ -38,5 +38,6 @@ public class RoleRepositoryTests {
 		Role roleTavolo = new Role("Tavolo", "Visualizza i prodotti e chiama il cameriere");
 		
 		repo.saveAll(List.of(roleCameriere, rolePr, roleTavolo));
+		
 	}
 }
