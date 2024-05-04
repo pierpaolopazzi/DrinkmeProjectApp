@@ -15,13 +15,13 @@ public interface ProductRepository extends CrudRepository<Product, Integer>, Pag
 			+ " ORDER BY p.name ASC")
 	public Page<Product> listByCategory(Integer categoryId, Pageable pageable);
 */	
-	@Query("SELECT c FROM Product c WHERE c.enabled = true ORDER BY c.name ASC")
+	@Query("SELECT p FROM Product p WHERE p.enabled = true AND p.inStock = true ORDER BY p.name ASC")
 	public List<Product> findAllEnabled();
-	
+/*	
 	@Query("SELECT p FROM Product p WHERE p.enabled = true "
 			+ "AND (p.category.id = ?1)"
 			+ " ORDER BY p.name ASC")
 	public List<Product> listByCategory(Integer categoryId);
-
+*/
 	
 }

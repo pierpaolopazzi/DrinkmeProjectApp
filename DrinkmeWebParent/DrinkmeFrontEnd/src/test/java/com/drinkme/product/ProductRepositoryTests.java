@@ -21,7 +21,7 @@ public class ProductRepositoryTests {
 	public void testListEnabledProducts() {
 		List<Product> products = repo.findAllEnabled();
 		products.forEach(product -> {
-			System.out.println(product.getName() + " (" + product.isEnabled() + ")");
+			System.out.println(product.getName() + " - Enabled -> (" + product.isEnabled() + ")" + " - In-Stock -> (" + product.isInStock() + ")");
 		});
 	}
 

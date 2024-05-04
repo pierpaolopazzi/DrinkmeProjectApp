@@ -9,7 +9,6 @@ import com.drinkme.common.entity.Product;
 
 @Service
 public class ProductService {
-	public static final int PRODUCT_PER_PAGE = 100;
 	
 	@Autowired private ProductRepository repo;
 	/*
@@ -26,13 +25,13 @@ public class ProductService {
 
 		return listEnabledProducts;
 	}
-	
+/*	
 	public List<Product> listByCategory(Integer categoryId) {
 		
 		List<Product> listProductsByCategory = repo.listByCategory(categoryId);
 		
 		return listProductsByCategory;
 	}
-	
+*/
 
 }
