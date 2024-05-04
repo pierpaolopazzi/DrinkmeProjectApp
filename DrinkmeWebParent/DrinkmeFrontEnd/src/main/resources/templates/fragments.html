@@ -15,31 +15,58 @@
             background-color: #121212;
             color: #ffffff;
         }
+        
+        h1.mb-4 {
+    		font-weight: bold !important; /* Imposta il peso del carattere in grassetto con !important */
+		}
+
 
         .btn.btn-custom {
-            background-color: #ffc107; /* Giallo */
-            color: #000000; /* Nero */
-            border-color: #ffc107; /* Giallo */
-        }
-
-        .btn.btn-custom:hover {
-            background-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
-            border-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
-        }
-        
-        .btn.btn-custom.btn-outline-custom {
-		    background-color: #ffc107; /* Giallo */
-		    color: #000000; /* Nero */
-		    border-color: #343a40; /* Tonalità scura vicino al nero */
+			    background-color: transparent; /* Imposta il colore di sfondo trasparente */
+			    color: #000000; /* Nero */
+			    border-color: transparent; /* Rimuovi il colore del bordo */
+			    border-radius: 20px;
 		}
-		
+			
+		.btn.btn-custom:hover {
+			    background-color: #ffffff; /* Giallo più scuro al passaggio del mouse */
+			    border-color: transparent; /* Rimuovi il colore del bordo */
+		}
+			
+		.btn.btn-custom.btn-outline-custom {
+			    background-color: transparent; /* Imposta il colore di sfondo trasparente */
+			    color: #000000; /* Nero */
+			    border-color: transparent; /* Rimuovi il colore del bordo */
+		}
+			
 		.btn.btn-custom.btn-outline-custom:hover {
-		    background-color: #ffb400; /* Giallo più scuro al passaggio del mouse */
-		    border-color: #343a40; /* Tonalità scura vicino al nero */
+			    background-color: #ffffff; /* Giallo più scuro al passaggio del mouse */
+			    color: #000000; /* Rimuovi il colore del bordo */
+				border-color: none;
+		}
+			
+		.btn.btn-custom.btn-outline-custom:focus {
+			    box-shadow: none; /* Rimuovi lo shadow al focus */
 		}
 		
-		.btn.btn-custom.btn-outline-custom:focus {
-		    box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.5); /* Aggiunge uno shadow al focus */
+		
+		.card {
+		    background-color: #ffffff; /* Colore di sfondo bianco */
+		    border-color: #000000; /* Colore del bordo bianco */
+		    border-radius: 20px; /* Bordi arrotondati */
+		    padding: 10px; /* Spaziatura interna */
+		    margin-top: 5px;
+		}
+		
+		.card:hover {
+		    background-color: #ffffff; /* Cambia il colore di sfondo in bianco al passaggio del mouse */
+		    border-color: #000000; /* Cambia il colore del bordo in bianco al passaggio del mouse */
+		}
+		
+		.custom-text-size {
+    		font-size: 1.25rem; /* Modifica la dimensione del testo */
+    			/* Puoi regolare la dimensione del testo come desiderato */
+    		font-weight: bold; 
 		}
 
         .collapse-content {
@@ -75,6 +102,8 @@
             }
         }
     </style>
+    
+
 </head>
 
 <body>	
