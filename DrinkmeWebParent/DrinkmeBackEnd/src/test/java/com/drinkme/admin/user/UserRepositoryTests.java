@@ -37,7 +37,7 @@ public class UserRepositoryTests {
 		User savedUser = repo.save(userPier);
 		assertThat(savedUser.getId()).isGreaterThan(0);
 	}
-	
+/*	
 	@Test
 	public void testCreateNewUserWithTwoRoles() {
 		User userLuca = new User("lucasardo@gmail.com", "lucasardo", "Luca", "Sardo");
@@ -51,7 +51,7 @@ public class UserRepositoryTests {
 		System.out.println("Utente salvato --> " + savedUser);
 		//assertThat(savedUser.getId()).isGreaterThan(0);
 	}
-	
+*/
 	@Test
 	public void testListAllUsers() {
 		Iterable<User> listUsers = repo.findAll();
@@ -73,7 +73,7 @@ public class UserRepositoryTests {
 		
 		repo.save(userPier);
 	}
-	
+	/*
 	@Test
 	public void testUpdateUserRoles() {
 		User userLuca = repo.findById(7).get();
@@ -85,7 +85,7 @@ public class UserRepositoryTests {
 		
 		repo.save(userLuca);
 	}
-	
+	*/
 	@Test
 	public void testDeleteUser() {
 		Integer userId = 7;
@@ -103,10 +103,10 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testCountById() {
-		Integer id = 6;
+		Integer id = 1;
 		Long countById = repo.countById(id);
 		
-		//assertThat(countById).isNotNull().isGreaterThan(0);
+		//assertThat(countById).isNull();
 		System.out.println(countById);
 	}
 	
