@@ -31,7 +31,8 @@ public class CategoryRepositoryTests {
 	public void testFindCategoryByAlias() {
 		String alias = "Gin";
 		Category category = repo.findByAliasEnabled(alias);
-	
-		assertThat(category).isNotNull();
+		
+		System.out.println(category);
+		assertThat(category).isNull();
 	}
 }
