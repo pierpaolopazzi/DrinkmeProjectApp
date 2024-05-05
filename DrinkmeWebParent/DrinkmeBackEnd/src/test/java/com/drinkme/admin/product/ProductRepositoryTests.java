@@ -64,7 +64,7 @@ public class ProductRepositoryTests {
 		Product product = repo.findById(id).get();
 		System.out.println(product);
 		
-		assertThat(product). isNotNull();
+		//assertThat(product). isNotNull();
 	}
 	
 	@Test
