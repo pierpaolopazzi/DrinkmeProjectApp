@@ -107,7 +107,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>isa-project</finalName>
 	</build>
 
 </project>
