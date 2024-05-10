@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  frontend:
+    image: frontend:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+
+  backend:
+    image: backend:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/mydatabase
+      - SPRING_DATASOURCE_USERNAME=myusername
+      - SPRING_DATASOURCE_PASSWORD=mypassword
+
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=drinkmedb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=chipuliscepiudichanteclair$_DIO
+
