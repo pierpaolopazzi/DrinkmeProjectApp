@@ -8,13 +8,13 @@ EXPOSE 80
 #WORKDIR /app
 
 # Copia il jar del frontend nell'immagine Docker
-ADD target/isa-project-frontend.jar isa-project-frontend.jar
+ADD target/isaprojectfrontend.jar isaprojectfrontend.jar
 
 # Variabili d'ambiente per la connessione al database PostgreSQL
-#ENV SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
-#ENV SPRING_DATASOURCE_USERNAME=postgres
-#ENV SPRING_DATASOURCE_PASSWORD=password
+ENV SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
+ENV SPRING_DATASOURCE_USERNAME=postgres
+ENV SPRING_DATASOURCE_PASSWORD=password
 
 # Avvio applicazione nel container
 #ENTRYPOINT ["java", "-jar", "/app/isa-project-frontend.jar"]
-ENTRYPOINT ["java", "-jar", "/isa-project-frontend.jar"]
+ENTRYPOINT ["java", "-jar", "/isaprojectfrontend.jar"]
