@@ -34,7 +34,7 @@ services:
     environment:
       - POSTGRES_DB=drinkmedb
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=chipuliscepiudichanteclair$_DIO
+      - POSTGRES_PASSWORD=password
     networks:
      defaults:
       aliases:
