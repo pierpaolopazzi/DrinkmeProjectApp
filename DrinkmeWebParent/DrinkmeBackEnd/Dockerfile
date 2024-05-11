@@ -1,13 +1,16 @@
+# Immagine base con openjdk:17
 FROM openjdk:17
+
+# Espone la porta 8080
 EXPOSE 8080
 
+# Espone la directory di lavoro all'interno del container
+WORKDIR /app
 
-
+# Copia il jar del frontend all'interno dell'immagine Docker
 ADD /DrinkmeWebParent/DrinkmeBackEnd/target/isa-project-backend.jar isa-project-backend.jar
 
-
-#RUN ./DrinkmeWebParent/mvnw clean package
-
+# Avvio applicazione all'interno del container
 ENTRYPOINT ["java", "-jar", "/isa-project-backend.jar"]
 
 
