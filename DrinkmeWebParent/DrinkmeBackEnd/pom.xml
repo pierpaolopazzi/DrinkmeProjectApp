@@ -28,7 +28,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		<finalName>isaprojectbackend</finalName>
+		<finalName>isa-project-backend</finalName>
 	</build>
 
 </project>
