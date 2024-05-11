@@ -5,7 +5,7 @@ FROM openjdk:17
 EXPOSE 8080
 
 # Espone la directory di lavoro all'interno del container
-WORKDIR /app
+#WORKDIR /app
 
 # Copia il jar del frontend all'interno dell'immagine Docker
 ADD target/isa-project-backend.jar isa-project-backend.jar
@@ -16,7 +16,7 @@ ENV SPRING_DATASOURCE_USERNAME=postgres
 ENV SPRING_DATASOURCE_PASSWORD=password
 
 # Avvio applicazione all'interno del container
-ENTRYPOINT ["java", "-jar", "/app/isa-project-backend.jar"]
-
+#ENTRYPOINT ["java", "-jar", "/app/isa-project-backend.jar"]
+ENTRYPOINT ["java", "-jar", "/isa-project-backend.jar"]
 
 
