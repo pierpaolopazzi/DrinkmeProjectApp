@@ -8,7 +8,7 @@ EXPOSE 8080
 WORKDIR /app
 
 # Copia il jar del frontend all'interno dell'immagine Docker
-ADD ./target/isa-project-backend.jar isa-project-backend.jar
+ADD /target/isa-project-backend.jar isa-project-backend.jar
 
 # Variabili d'ambiente per la connessione al database PostgreSQL
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
