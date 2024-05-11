@@ -8,10 +8,10 @@ EXPOSE 8080
 WORKDIR /app
 
 # Copia il jar del frontend all'interno dell'immagine Docker
-ADD /DrinkmeWebParent/DrinkmeBackEnd/target/isa-project-backend.jar isa-project-backend.jar
+COPY ./target/isa-project-backend.jar isa-project-backend.jar
 
 # Avvio applicazione all'interno del container
-ENTRYPOINT ["java", "-jar", "/isa-project-backend.jar"]
+ENTRYPOINT ["java", "-jar", "/app/isa-project-backend.jar"]
 
 
 

@@ -5,38 +5,19 @@ services:
     build: ./DrinkmeWebParent/DrinkmeFrontEnd
     ports:
       - "80:80"
-    depends_on:
-      - backend
-      - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=production
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/mydatabase
-      - SPRING_DATASOURCE_USERNAME=myusername
-      - SPRING_DATASOURCE_PASSWORD=mypassword
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
 
   backend:
     build: ./DrinkmeWebParent/DrinkmeBackEnd
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
     environment:
       - SPRING_PROFILES_ACTIVE=production
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/mydatabase
-      - SPRING_DATASOURCE_USERNAME=myusername
-      - SPRING_DATASOURCE_PASSWORD=mypassword
-
-
-  postgres:
-    image: postgres:15
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=drinkmedb
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=password
-    networks:
-     defaults:
-      aliases:
-       - localhost
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
 
