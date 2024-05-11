@@ -46,7 +46,7 @@ jobs:
       run: mvn clean install
       
     - name: Build & push Docker image backend
-      uses: mr-smithers-excellent/docker-build-push@v6
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: pierpaolopazzi23/isa-project-backend
         tags: latest
@@ -56,7 +56,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD  }}
         
     - name: Build & push Docker image frontend
-      uses: mr-smithers-excellent/docker-build-push@v6
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: pierpaolopazzi23/isa-project-frontend
         tags: latest
