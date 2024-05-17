@@ -77,16 +77,12 @@ public class UserServiceTests {
     
     @Test
     public void testIsEmailUniqueExistingUserDifferentEmail() {
-        // Given
         Integer userId = 1;
         String existingEmail = "existinguser@example.com";
         String differentEmail = "differentemail@example.com";
         User existingUser = new User(existingEmail, "password123", "Existing", "User");
         Mockito.when(repo.getUserByEmail(existingEmail)).thenReturn(existingUser);
-
-
         boolean isUnique = service.isEmailUnique(userId, differentEmail);
-
         assertThat(isUnique).isTrue();
     }
     
@@ -104,14 +100,11 @@ public class UserServiceTests {
         Mockito.when(repo.countById(userId)).thenReturn(null);
         UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> service.delete(userId));
         assertEquals("Impossibile trovare utenti con ID: " + userId, exception.getMessage());
-
-        // Verify that deleteById() is not called
         Mockito.verify(repo, never()).deleteById(userId);
     }
     
     @Test
     public void testGetExistingUser() throws UserNotFoundException {
-        // Given
         Integer userId = 1;
         User existingUser = new User();
         existingUser.setId(userId);
@@ -131,12 +124,8 @@ public class UserServiceTests {
     
     @Test
     public void testGetUserThrowsException() {
-        // Given
         Integer userId = 1;
-
         Mockito.when(repo.findById(userId)).thenThrow(NoSuchElementException.class);
-
-        // When/Then
         assertThrows(UserNotFoundException.class, () -> service.get(userId));
     }
     
@@ -157,9 +146,31 @@ public class UserServiceTests {
         Mockito.verify(repo, times(1)).updateEnabledStatus(userId, enabled);
     }
     
-    
-    
+    @Test
+    public void testCheckUserEnabledStatusIsDisable() {
+        Integer userId = 1;
+        boolean enabled = false;
+        User user = new User();
+        user.setId(userId);
+        user.setEnabled(true);
+        Mockito.when(repo.findById(userId)).thenReturn(Optional.of(user));
+        Mockito.doAnswer(invocation -> {
+            Object[] args = invocation.getArguments();
+            Integer id = (Integer) args[0];
+            Boolean isEnabled = (Boolean) args[1];
+            if (id.equals(userId)) {
+                user.setEnabled(isEnabled);
+            }
+            return null;
+        }).when(repo).updateEnabledStatus(userId, enabled);
+        service.updateUserEnabledStatus(userId, enabled);
+        Mockito.verify(repo, times(1)).updateEnabledStatus(userId, enabled);
+        assertThat(user.isEnabled()).isFalse();
+    }
 }
+    
+    
+
 
 
 

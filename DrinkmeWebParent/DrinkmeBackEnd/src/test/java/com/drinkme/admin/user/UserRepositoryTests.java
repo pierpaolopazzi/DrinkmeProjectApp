@@ -65,7 +65,6 @@ public class UserRepositoryTests {
 	public void testGetUserById() {
 		User userPier = repo.findById(1).get();
 		System.out.println(userPier);
-		//assertThat(userPier).isNotNull();
 	}
 	
 	@Test
@@ -78,7 +77,6 @@ public class UserRepositoryTests {
     @Test
     public void testGetUserByIdThrowsException() {
         Integer nonExistentId = 100;
-
         assertThrows(NoSuchElementException.class, () -> {
             repo.findById(nonExistentId).get();
         });
