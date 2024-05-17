@@ -1,8 +1,11 @@
 package com.drinkme.admin.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +67,22 @@ public class UserRepositoryTests {
 		System.out.println(userPier);
 		//assertThat(userPier).isNotNull();
 	}
+	
+	@Test
+	public void testGetUserByIdNonExistent() {
+		Integer nonExistentId = 100;
+		Optional<User> userOptional = repo.findById(nonExistentId);	
+		assertThat(userOptional).isNotPresent();
+	}
+	
+    @Test
+    public void testGetUserByIdThrowsException() {
+        Integer nonExistentId = 100;
+
+        assertThrows(NoSuchElementException.class, () -> {
+            repo.findById(nonExistentId).get();
+        });
+    }
 	
 	@Test
 	public void testUpdateUserDetails() {
@@ -133,7 +152,7 @@ public class UserRepositoryTests {
 		List<User> listUsers = page.getContent();
 		listUsers.forEach(user -> System.out.println(user));
 		
-		//assertThat(listUsers.size()).isEqualTo(pageSize);
+		assertThat(listUsers.size()).isEqualTo(pageSize);
 	}
 	
 	@Test
@@ -149,7 +168,6 @@ public class UserRepositoryTests {
 		List<User> listUsers = page.getContent();
 		listUsers.forEach(user -> System.out.println(user));
 		
-		//assertThat(listUsers.size()).isGreaterThan(0); 
 	}
 	
 	@Test
@@ -167,6 +185,7 @@ public class UserRepositoryTests {
 		
 		assertThat(listUsers.size()).isEqualTo(0); 
 	}
+	
 }
 
 
