@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,8 +41,9 @@ public class WebSecurityConfig {
 				.requestMatchers("/utenti/**").hasAuthority("Admin")
 				.requestMatchers("/categorie/**").hasAnyAuthority("Admin", "Cameriere")
 				.requestMatchers("/prodotti/**").hasAnyAuthority("Admin", "Cameriere")
+				.requestMatchers("/images/**", "/js/**", "/webjars/**").permitAll()
 				.anyRequest().authenticated()
-				)  // Lambda DSL Syntax
+				)
 				.formLogin(form -> form
 						.loginPage("/login")
 						.usernameParameter("email")
@@ -56,12 +56,12 @@ public class WebSecurityConfig {
 		
 		return http.build();
 	}
-	
+/*	
 	@Bean
 	WebSecurityCustomizer configureWebSecurity() throws Exception {
 		return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
 	}
-
+*/
 /*
 	@Bean
 	SecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {

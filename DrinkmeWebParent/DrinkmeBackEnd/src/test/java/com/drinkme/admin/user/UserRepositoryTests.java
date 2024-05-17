@@ -138,7 +138,7 @@ public class UserRepositoryTests {
 	
 	@Test
 	public void testSearchUsers() {
-		String keyword = "Pier Paolo";
+		String keyword = "Stefano";
 		
 		int pageNumber = 0;
 		int pageSize = 20;
@@ -149,7 +149,7 @@ public class UserRepositoryTests {
 		List<User> listUsers = page.getContent();
 		listUsers.forEach(user -> System.out.println(user));
 		
-		//assertThat(listUsers.size()).isGreaterThan(0); 
+		assertThat(listUsers.size()).isGreaterThan(0); 
 	}
 }
 

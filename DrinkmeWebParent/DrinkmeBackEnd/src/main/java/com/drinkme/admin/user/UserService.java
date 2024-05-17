@@ -77,18 +77,22 @@ public class UserService {
 		user.setPassword(encodedPassword);
 	}
 	
+	// Controllo che indirizzo email che voglio inserire sia univoco rispetto a quelli già presenti 
 	public boolean isEmailUnique(Integer id, String email) {
 		User userByEmail = userRepo.getUserByEmail(email);
 		
+		// Nessun utente con l'indirizzo specificato
 		if(userByEmail == null) return true;
+		
 		
 		boolean isCreatingNew = (id == null);
 		
+		// verifico se si sta creando un nuovo utente
 		if(isCreatingNew) {
-			if(userByEmail != null) return false;
+			if(userByEmail != null) return false; // esiste già utente con lo stesso indirizzo email
 		} else {
-			if(userByEmail.getId() != id) {
-				return false;
+			if(userByEmail.getId() != id) { 
+				return false;			// indirizzo email appartiene ad un altro utente
 			}
 		}
 		

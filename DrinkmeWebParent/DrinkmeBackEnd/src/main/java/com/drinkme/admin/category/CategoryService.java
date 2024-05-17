@@ -41,7 +41,7 @@ public class CategoryService {
 		// vero se esiste categoria con id
 		boolean isUpdatingCategory = (category.getId() !=  null);
 		
-		categoryRepo.save(category);
+		//categoryRepo.save(category);
 		
 		// verifico che sia una modifica
 		// piuttosto che una nuova categoria
