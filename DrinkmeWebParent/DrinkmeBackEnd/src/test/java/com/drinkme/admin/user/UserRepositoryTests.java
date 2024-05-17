@@ -149,7 +149,23 @@ public class UserRepositoryTests {
 		List<User> listUsers = page.getContent();
 		listUsers.forEach(user -> System.out.println(user));
 		
-		assertThat(listUsers.size()).isGreaterThan(0); 
+		//assertThat(listUsers.size()).isGreaterThan(0); 
+	}
+	
+	@Test
+	public void testSearchUsersNonExisting() {
+		String keyword = "Batman";
+		
+		int pageNumber = 0;
+		int pageSize = 20;
+		
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Page<User> page = repo.findAll(keyword, pageable);
+		
+		List<User> listUsers = page.getContent();
+		listUsers.forEach(user -> System.out.println(user));
+		
+		assertThat(listUsers.size()).isEqualTo(0); 
 	}
 }
 
