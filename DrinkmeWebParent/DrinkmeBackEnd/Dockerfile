@@ -12,7 +12,7 @@ COPY ./DrinkmeWebParent/DrinkmeBackEnd/target/isa-project-backend.jar isa-projec
 
 # Variabili d'ambiente per la connessione al database PostgreSQL
 ENV SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/drinkmedb
-ENV SPRING_DATASOURCE_USERNAME=postgres
+ENV SPRING_DATASOURCE_USERNAME=username
 ENV SPRING_DATASOURCE_PASSWORD=password
 
 # Avvio applicazione all'interno del container
