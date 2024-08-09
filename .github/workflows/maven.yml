@@ -48,7 +48,7 @@ jobs:
     - name: Build & push Docker image backend
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
-        image: pierpaolopazzi23/isa-project-backend
+        image: ******/isa-project-backend
         tags: latest
         registry: docker.io
         dockerfile: ./DrinkmeWebParent/DrinkmeBackEnd/Dockerfile
@@ -58,7 +58,7 @@ jobs:
     - name: Build & push Docker image frontend
       uses: mr-smithers-excellent/docker-build-push@v6
       with:
-        image: pierpaolopazzi23/isa-project-frontend
+        image: ******/isa-project-frontend
         tags: latest
         registry: docker.io
         dockerfile: ./DrinkmeWebParent/DrinkmeFrontEnd/Dockerfile
